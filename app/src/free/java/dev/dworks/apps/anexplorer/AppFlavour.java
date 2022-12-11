@@ -18,7 +18,6 @@ import dev.dworks.apps.anexplorer.misc.AnalyticsManager;
 import dev.dworks.apps.anexplorer.misc.CrashReportingManager;
 import dev.dworks.apps.anexplorer.misc.PreferenceUtils;
 import dev.dworks.apps.anexplorer.misc.Utils;
-import io.fabric.sdk.android.services.common.BackgroundPriorityRunnable;
 import needle.Needle;
 
 /**
@@ -68,9 +67,9 @@ public abstract class AppFlavour extends Application implements BillingProcessor
 			return;
 		}
 
-		Needle.onBackgroundThread().execute(new BackgroundPriorityRunnable() {
+		Needle.onBackgroundThread().execute(new Runnable() {
 			@Override
-			protected void onRun() {
+			public void run() {
 				getPurchSkuDetails();
 				boolean isPurchased = getBillingProcessor().isPurchased(getPurchasedProductId());
 				PreferenceUtils.set(PURCHASED, isPurchased);
